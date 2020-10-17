@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('units-test', 'DataImport@import');
+
 Route::get('/', function () {
     return view('welcome');
 });
