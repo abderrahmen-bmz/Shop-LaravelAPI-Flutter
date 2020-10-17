@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Unit;
-use DB;
+
 //use App\Http\Controllers\DB;
 //use Illuminate\Http\Request;
 
@@ -138,5 +138,7 @@ class DataImportController extends Controller
             $unit->save();
             
             }
+
+            echo 'Finished';
     }
 }

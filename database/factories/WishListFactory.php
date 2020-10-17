@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(WishList::class, function (Faker $faker) {
     return [
-        //
+        '' => $faker->numberBetween(),
+        '' => $faker->numberBetween(),
     ];
 });
