@@ -13,8 +13,9 @@ class UnitController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {    
+        $units  = Unit::paginate(16);
+        return view('admin.units.units')->with(['units'=>$units]);
     }
 
     /**
@@ -46,7 +47,7 @@ class UnitController extends Controller
      */
     public function show(Unit $unit)
     {
-        //
+        return view('admin.units.add_edit');
     }
 
     /**

@@ -26,3 +26,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('test-email', function () {
      return 'Hallo';  
 })->middleware(['auth','user_is_support']);
+
+
+Route::group(['auth','admin_is_admin'], function () {
+
+    Route::get('units','UnitController@index')->name('units');
+    Route::get('add-unit','UnitController@show')->name('new-unit');
+});

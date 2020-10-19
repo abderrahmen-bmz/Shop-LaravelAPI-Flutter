@@ -16,9 +16,9 @@ class CreateTicketsTable extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('message');
+            $table->text('message');
             $table->string('status')->default('pending');
-            $table->bigInteger('ticket_type');
+            $table->bigInteger('ticket_type_id');
             $table->bigInteger('user_id');
             $table->bigInteger('order_id');
             $table->timestamps();
