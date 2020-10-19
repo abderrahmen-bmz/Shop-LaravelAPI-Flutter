@@ -29,7 +29,33 @@ Route::get('test-email', function () {
 
 
 Route::group(['auth','admin_is_admin'], function () {
-
+     
+    // Units
     Route::get('units','UnitController@index')->name('units');
     Route::get('add-unit','UnitController@show')->name('new-unit');
+
+    // Categories
+    Route::get('categories','CategoryController@index')->name('categories');
+
+    // Products
+    Route::get('products','ProductController@index')->name('products');
+
+    // Tags
+    Route::get('tags','TagController@index')->name('tags');
+    // Payments
+    // Orders 
+    Route::get('orders','OrderController@index')->name('orders');
+    // Shipments
+    // Cities
+    Route::get('cities','CityController@index')->name('cities');
+    // Countries
+    Route::get('countries','CountryController@index')->name('countries');
+    // States
+    Route::get('states','StateController@index')->name('states');
+    // Reviews
+    Route::get('reviews','ReviewController@index')->name('reviews');
+
+    // Tickets
+    Route::get('tickets','TicketController@index')->name('tickets');
+    // Roles
 });
