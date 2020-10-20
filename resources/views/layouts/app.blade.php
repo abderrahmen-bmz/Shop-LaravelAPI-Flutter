@@ -64,6 +64,9 @@
                                 <a class="dropdown-item" href="{{ route('categories') }}">
                                     {{ __('Categories') }}
                                 </a>
+                                <a class="dropdown-item" href="{{ route('products') }}">
+                                    {{ __('Products') }}
+                                </a>
 
                                 <a class="dropdown-item" href="{{ route('units') }}">
                                     {{ __('Units') }}
@@ -71,8 +74,20 @@
                                 <a class="dropdown-item" href="{{ route('products') }}">
                                     {{ __('Products') }}
                                 </a>
-                                <a class="dropdown-item" href="{{ route('units') }}">
-                                    {{ __('Units') }}
+                                <a class="dropdown-item" href="{{ route('customers') }}">
+                                    {{ __('Customers') }}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('orders') }}">
+                                    {{ __('Orders') }}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('tickets') }}">
+                                    {{ __('Tickets') }}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('tags') }}">
+                                    {{ __('Tags') }}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('reviews') }}">
+                                    {{ __('Reviews') }}
                                 </a>
 
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
