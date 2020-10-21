@@ -37,6 +37,9 @@ Route::group(['auth','admin_is_admin'], function () {
     // Categories
     Route::get('categories','CategoryController@index')->name('categories');
 
+    // Cutomers
+    Route::get('customers','CustomerController@index')->name('customers');
+
     // Products
     Route::get('products','ProductController@index')->name('products');
 
@@ -58,4 +61,6 @@ Route::group(['auth','admin_is_admin'], function () {
     // Tickets
     Route::get('tickets','TicketController@index')->name('tickets');
     // Roles
+
+    Route::get('roles','RoleController@index')->name('roles');
 });
