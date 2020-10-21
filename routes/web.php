@@ -32,7 +32,8 @@ Route::group(['auth','admin_is_admin'], function () {
      
     // Units
     Route::get('units','UnitController@index')->name('units');
-    Route::get('add-unit','UnitController@show')->name('new-unit');
+    Route::post('units', 'UnitController@store');
+   // Route::get('add-unit','UnitController@show')->name('new-unit');
 
     // Categories
     Route::get('categories','CategoryController@index')->name('categories');

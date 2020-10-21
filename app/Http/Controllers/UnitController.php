@@ -36,7 +36,16 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'unit_name' => 'required',
+            'unit_code' => 'required'
+        ]);
+
+        $unit =  new Unit();
+        $unit->unit_name = $request->input('unit_name');
+        $unit->unit_ocde = $request->input('unit_code');
+        $unit->save();
+     //   return redirect->back();
     }
 
     /**

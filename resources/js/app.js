@@ -4,7 +4,12 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+const jquery = require('jquery');
+
 require('./bootstrap');
+jQuery(document).ready(function ($) {
+    $('.toast').toast(option)
+});
 
 window.Vue = require('vue');
 
