@@ -85,7 +85,7 @@ class UnitController extends Controller
         $unit->unit_name = $request->input('unit_name');
         $unit->unit_code = $request->input('unit_code');
         $unit->save();
-        Session::flash('message', 'the unit '.$unit->unit_name.' has been added');
+        session()->flash('message', 'the unit '.$unit->unit_name.' has been added');
         return redirect()->back();
     }
 
