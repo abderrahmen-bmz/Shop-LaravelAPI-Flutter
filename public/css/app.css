@@ -10903,3 +10903,29 @@ a.text-dark:focus {
   }
 }
 
+.delete-btn {
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  color: red;
+  position: absolute;
+  right: 5px;
+}
+
+span.buttons-span {
+  position: absolute;
+  right: 15px;
+}
+
+span.buttons-span span:first-child {
+  margin-right: 10px;
+}
+
+span.buttons-span span:first-child a {
+  color: green;
+}
+
+span.buttons-span span:last-child a {
+  color: red;
+}
+
