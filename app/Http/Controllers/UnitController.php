@@ -42,8 +42,11 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $units  = Unit::paginate(16);
-        return view('admin.units.units')->with(['units' => $units]);
+        $units = Unit::paginate(env('PAGINATE_COUNT'));
+        return view('admin.units.units')->with([
+            'units' => $units,
+            'showLinks' => true,
+        ]);
     }
 
     /**
@@ -68,24 +71,24 @@ class UnitController extends Controller
             'unit_name' => 'required',
             'unit_code' => 'required',
         ]);
-        
-        
-        $unitName=$request->input('unit_name');
-        $unitCode=$request->input('unit_code');
 
-        if($this->unitNameExists($unitName)){ 
-             return redirect()->back();
-        }
-        if($this->unitCodeExists($unitCode)){
+
+        $unitName = $request->input('unit_name');
+        $unitCode = $request->input('unit_code');
+
+        if ($this->unitNameExists($unitName)) {
             return redirect()->back();
         }
-        
-        
+        if ($this->unitCodeExists($unitCode)) {
+            return redirect()->back();
+        }
+
+
         $unit = new Unit();
         $unit->unit_name = $request->input('unit_name');
         $unit->unit_code = $request->input('unit_code');
         $unit->save();
-        session()->flash('message', 'the unit '.$unit->unit_name.' has been added');
+        session()->flash('message', 'the unit ' . $unit->unit_name . ' has been added');
         return redirect()->back();
     }
 
@@ -109,6 +112,33 @@ class UnitController extends Controller
     public function edit(Unit $unit)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        $request->validate([
+            'unit_search' => 'required'
+        ]);
+        $searchTerm = $request->input('unit_search');
+
+
+        $units = Unit::where(
+            'unit_name',
+            'LIKE',
+            '%' . $searchTerm . '%'
+        )->orWhere(
+            'unit_code',
+            'LIKE',
+            '%' . $searchTerm . '%'
+        )->get();
+        if (count($units) > 0) {
+            return view('admin.units.units')->with([
+                'units' => $units,
+                'showLinks' => false,
+            ]);
+        }
+        session()->flash('message', 'Nothing Found !!');
+        return redirect()->back();
     }
 
     /**

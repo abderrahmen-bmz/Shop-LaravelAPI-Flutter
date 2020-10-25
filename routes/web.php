@@ -35,6 +35,7 @@ Route::group(['auth','admin_is_admin'], function () {
     Route::post('units', 'UnitController@store');
     Route::delete('units', 'UnitController@delete');
     Route::put('units', 'UnitController@update');
+    Route::post('search-units', 'UnitController@search')->name('search-units');
 
     // Route::get('add-unit','UnitController@show')->name('new-unit');
 
