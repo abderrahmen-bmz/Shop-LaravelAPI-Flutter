@@ -34,7 +34,9 @@ Route::group(['auth','admin_is_admin'], function () {
     Route::get('units','UnitController@index')->name('units');
     Route::post('units', 'UnitController@store');
     Route::delete('units', 'UnitController@delete');
-   // Route::get('add-unit','UnitController@show')->name('new-unit');
+    Route::put('units', 'UnitController@update');
+
+    // Route::get('add-unit','UnitController@show')->name('new-unit');
 
     // Categories
     Route::get('categories','CategoryController@index')->name('categories');

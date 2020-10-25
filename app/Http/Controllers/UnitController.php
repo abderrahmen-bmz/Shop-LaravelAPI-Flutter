@@ -66,14 +66,26 @@ class UnitController extends Controller
     {
         $request->validate([
             'unit_name' => 'required',
-            'unit_code' => 'required'
+            'unit_code' => 'required',
         ]);
+        
+        
+        $unitName=$request->input('unit_name');
+        $unitCode=$request->input('unit_code');
 
-        $unit =  new Unit();
+        if($this->unitNameExists($unitName)){ 
+             return redirect()->back();
+        }
+        if($this->unitCodeExists($unitCode)){
+            return redirect()->back();
+        }
+        
+        
+        $unit = new Unit();
         $unit->unit_name = $request->input('unit_name');
         $unit->unit_code = $request->input('unit_code');
         $unit->save();
-        session()->flash('message', 'Unit ' . $unit . 'Has been added.');
+        Session::flash('message', 'the unit '.$unit->unit_name.' has been added');
         return redirect()->back();
     }
 
