@@ -24,14 +24,14 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('test-email', function () {
-     return 'Hallo';  
-})->middleware(['auth','user_is_support']);
+    return 'Hallo';
+})->middleware(['auth', 'user_is_support']);
 
 
-Route::group(['auth','admin_is_admin'], function () {
-     
+Route::group(['auth', 'admin_is_admin'], function () {
+
     // Units
-    Route::get('units','UnitController@index')->name('units');
+    Route::get('units', 'UnitController@index')->name('units');
     Route::post('units', 'UnitController@store');
     Route::delete('units', 'UnitController@delete');
     Route::put('units', 'UnitController@update');
@@ -40,32 +40,36 @@ Route::group(['auth','admin_is_admin'], function () {
     // Route::get('add-unit','UnitController@show')->name('new-unit');
 
     // Categories
-    Route::get('categories','CategoryController@index')->name('categories');
+    Route::get('categories', 'CategoryController@index')->name('categories');
 
     // Cutomers
-    Route::get('customers','CustomerController@index')->name('customers');
+    Route::get('customers', 'CustomerController@index')->name('customers');
 
     // Products
-    Route::get('products','ProductController@index')->name('products');
+    Route::get('products', 'ProductController@index')->name('products');
 
     // Tags
-    Route::get('tags','TagController@index')->name('tags');
+    Route::get('tags', 'TagController@index')->name('tags');
+    Route::post('tags', 'TagController@store');
+    Route::delete('tags', 'TagController@delete');
+    Route::put('tags', 'TagController@update');
+    Route::post('search-tags', 'TagController@search')->name('search-tags');
     // Payments
     // Orders 
-    Route::get('orders','OrderController@index')->name('orders');
+    Route::get('orders', 'OrderController@index')->name('orders');
     // Shipments
     // Cities
-    Route::get('cities','CityController@index')->name('cities');
+    Route::get('cities', 'CityController@index')->name('cities');
     // Countries
-    Route::get('countries','CountryController@index')->name('countries');
+    Route::get('countries', 'CountryController@index')->name('countries');
     // States
-    Route::get('states','StateController@index')->name('states');
+    Route::get('states', 'StateController@index')->name('states');
     // Reviews
-    Route::get('reviews','ReviewController@index')->name('reviews');
+    Route::get('reviews', 'ReviewController@index')->name('reviews');
 
     // Tickets
-    Route::get('tickets','TicketController@index')->name('tickets');
+    Route::get('tickets', 'TicketController@index')->name('tickets');
     // Roles
 
-    Route::get('roles','RoleController@index')->name('roles');
+    Route::get('roles', 'RoleController@index')->name('roles');
 });
