@@ -31,7 +31,7 @@
                                     <span><a class="delete-tag" data-tagId="{{$tag->id}}" data-tagName="{{$tag->tag}}"><i class="fas fa-trash-alt"></i></a></span>
                                 </span>
                                 <p>{{$tag->tag}}</p>
-                                <p></p>
+
                             </div>
                         </div>
 
@@ -151,7 +151,7 @@
     </div>
 </div>
 @endif
-</div>
+
 
 
 @endsection

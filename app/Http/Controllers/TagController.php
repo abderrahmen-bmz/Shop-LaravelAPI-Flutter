@@ -67,7 +67,7 @@ class TagController extends Controller
         session()->flash('message', 'Nothing Found !!');
         return redirect()->back();
     }
-    public function uodate(Request $request)
+    public function update(Request $request)
     {
 
         $request->validate([
@@ -86,7 +86,7 @@ class TagController extends Controller
         $tagID = intval($request->input('tag_id'));
         $tag = Tag::find($tagID);
 
-        $tag->unit_name = $request->input('tag_name');
+        $tag->tag = $request->input('tag_name');
         $tag->save();
         session()->flash('message', 'Tag ' . $tag->tag . ' has been apdated');
         return redirect()->back();

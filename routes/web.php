@@ -41,12 +41,23 @@ Route::group(['auth', 'admin_is_admin'], function () {
 
     // Categories
     Route::get('categories', 'CategoryController@index')->name('categories');
+    Route::post('categories', 'CategoryController@store');
+    Route::delete('categories', 'CategoryController@delete');
+    Route::put('categories', 'CategoryController@update');
+    Route::post('search-categories', 'CategoryController@search')->name('search-categories');
 
     // Cutomers
     Route::get('customers', 'CustomerController@index')->name('customers');
 
     // Products
     Route::get('products', 'ProductController@index')->name('products');
+   
+    Route::get('new-product', 'ProductController@newProduct')->name('new-product');
+    Route::get('update-product/{id}', 'ProductController@newProduct')->name('update-product');
+    
+    Route::put('new-product/{id}', 'ProductController@update');
+    Route::post('new-product', 'ProductController@store');
+    Route::delete('products/{id}', 'ProductController@delete');
 
     // Tags
     Route::get('tags', 'TagController@index')->name('tags');
