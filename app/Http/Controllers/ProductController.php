@@ -60,7 +60,7 @@ class ProductController extends Controller
         $product->discount = doubleval($request->input('product_discount'));
         $product->total = doubleval($request->input('product_total'));
         $product->category_id = intval($request->input('product_category'));
-        /// finsh options with save ** 55
+        /// finish options with save 
         if ($request->has('options')) {
             $optionArray = [];
             $options = array_unique($request->input('options'));

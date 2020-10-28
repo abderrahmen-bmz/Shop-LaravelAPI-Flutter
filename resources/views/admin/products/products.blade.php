@@ -19,9 +19,25 @@
                                 <p>Category :{{(is_object($product->category)) ? $product->category->name : ''}}</p>
                                 <p>Price :{{$currency_code }}{{$product->price}}</p>
                                 {!! (count($product->images) > 0) ? '<img class="img-thumbnail card-img" src="'. $product->images[0]->url.'" />' : '' !!}
-                               
+
                                 @if(! is_null($product->options))
-                                <table class="table-bordered table">
+
+                                @foreach($product->jsonOptions() as $optionKey => $options)
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label for="{{$optionKey}}">{{$optionKey}}</label>
+                                        <select type="text" class="form-control" id="{{$optionKey}}" name="{{$optionKey}}">
+                                            @foreach($options as $option)
+                                            <option value="{{$option}}">
+                                                {{$option}}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                @endforeach
+                                <!-- <table class="table-bordered table">
                                     @foreach($product->jsonOptions() as $optionKey => $options)
                                             @foreach($options as $option)
                                             <tr>
@@ -30,8 +46,8 @@
                                             </tr>
                                             @endforeach
                                     @endforeach
-                                </table>
-                             
+                                </table> -->
+
                                 @endif
                                 <a class="btn btn-success" href="{{route('update-product' , ['id' => $product->id])}}">
                                     Update Product
