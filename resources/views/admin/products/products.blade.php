@@ -25,11 +25,11 @@
                                 @foreach($product->jsonOptions() as $optionKey => $options)
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <label for="{{$optionKey}}">{{$optionKey}}</label>
+                                        <label for="{{$optionKey}}">{{strtoupper($optionKey) }}</label>
                                         <select type="text" class="form-control" id="{{$optionKey}}" name="{{$optionKey}}">
                                             @foreach($options as $option)
                                             <option value="{{$option}}">
-                                                {{$option}}
+                                                {{strtoupper($option) }}
                                             </option>
                                             @endforeach
                                         </select>

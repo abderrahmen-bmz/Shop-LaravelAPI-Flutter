@@ -77,15 +77,36 @@
 
                         {{-- //Options --}}
 
+                        {{-- Images --}}
                         <div class="form-group col-md-12">
-                            <button type="submit" class="btn btn-primary">Save New product</button>
+                            <div class="row">
+                                @for($i = 0 ; $i < 6 ; $i++) <div class="col-md-4 col-sm-12 mb-4">
+                                    <div class="card image-card-upload">
+                                        <a href="" class="activate-image-upload" data-fileid="{{$i}}">
+                                            <div class="card-body" style>
+                                                <input name="product_images[]" type="file" class="form-control-file image-file-upload" id="#image-{{$i}}">
+                                            </div>
+                                        </a>
+                                    </div>
+                            </div>
+                            @endfor
                         </div>
-
                 </div>
-                </form>
             </div>
+
+            {{-- //Images --}}
+
+
+
+            <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-primary">Save New product</button>
+            </div>
+
         </div>
+        </form>
     </div>
+</div>
+</div>
 </div>
 
 <div class="modal option-window" tabindex="-1">
@@ -138,6 +159,8 @@
         var $addOptionBtn = $('.add-option-btn');
         var $optionTable = $('#option-table');
 
+        var $activateImageUpload = $('.activate-image-upload');
+
         $addOptionBtn.on('click', function(e) {
             e.preventDefault();
             $optionWindow.modal('show');
@@ -164,8 +187,8 @@
                 alert('Option value is Required');
                 return false;
             }
-             
-            if ( ! optionNameList.includes( $optionName.val() ) ) {
+
+            if (!optionNameList.includes($optionName.val())) {
                 optionNameList.push($optionName.val());
 
                 optionNamesRow =
@@ -173,7 +196,7 @@
                     '<input type="hidden" name="options[]" value="' +
                     $optionName.val() +
                     '">'
-                   '</td>';
+                '</td>';
             }
 
             var optionRow = '<tr>' +
@@ -194,6 +217,12 @@
 
 
 
+        });
+
+        $activateImageUpload.on('click', function(e) {
+            e.preventDefault();
+            var fileUploadID = $(this).data('fileid');
+            $(fileUploadID).trigger('click');
         });
     });
 </script>
