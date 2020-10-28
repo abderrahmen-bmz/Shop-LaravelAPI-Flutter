@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use function GuzzleHttp\json_decode;
+
 class Product extends Model
 {
   protected $fillable = [
@@ -29,5 +31,10 @@ class Product extends Model
 
   public function hasUnit(){
     return $this->belongsTo(Unit::class,'unit','id');
+  }
+
+
+  public function jsonOptions(){
+    return json_decode( $this->options );
   }
 }
