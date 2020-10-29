@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('new-product')}}" class="row" method="POST">
+                    <form action="{{ route('new-product')}}" class="row" method="POST" enctype="multipart/form-data">
                         @csrf
                         @if (!is_null($product))
                         <input type="hidden" name="_method" value="put">
@@ -71,7 +71,7 @@
                             <table id="option-table" class="table table-striped">
 
                             </table>
-                            <a href="" class="btn btn-primary add-option-btn">Add Option</a>
+                            <a href="#" class="btn btn-primary add-option-btn">Add Option</a>
 
                         </div>
 
@@ -82,11 +82,15 @@
                             <div class="row">
                                 @for($i = 0 ; $i < 6 ; $i++) <div class="col-md-4 col-sm-12 mb-4">
                                     <div class="card image-card-upload">
-                                        <a href="" class="activate-image-upload" data-fileid="{{$i}}">
+                                        <a href="#" class="remove-image-upload">
+                                            <i class="fas fa-minus-circle"></i>
+                                        </a>
+                                        <a href="#" class="activate-image-upload" data-fileid="image-{{$i}}">
                                             <div class="card-body" style>
-                                                <input name="product_images[]" type="file" class="form-control-file image-file-upload" id="#image-{{$i}}">
+                                                <i class="fas fa-image"></i>
                                             </div>
                                         </a>
+                                        <input name="product_images[]" type="file" class="form-control-file image-file-upload" id="image-{{$i}}">
                                     </div>
                             </div>
                             @endfor
@@ -219,10 +223,45 @@
 
         });
 
+        function readURL(input, imageID) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#' + imageID).attr('src', e.target.result);
+                    // console.log(e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function resetFileUpload(fileUploadID, imageID ,$el , $ed){
+            $('#'+imageID).attr('src' , '');
+            $el.fadeIn();
+            $ed.fadeOut();
+            $('#' + fileUploadID).val('');
+        }
+
         $activateImageUpload.on('click', function(e) {
             e.preventDefault();
             var fileUploadID = $(this).data('fileid');
-            $(fileUploadID).trigger('click');
+            var me = $(this);
+            $('#' + fileUploadID).trigger('click');
+            var imagetag = '<img id="i' + fileUploadID + '" scr =" " class="card-img-top">';
+            //   var imagetag = '<img id="i' + fileUploadID + '" scr =" " class="card-img-top">';
+            $(this).append(imagetag);
+            $('#' + fileUploadID).on('change', function(e) {
+                readURL(this, 'i' + fileUploadID);
+                me.find('i').fadeOut();
+                var $removeThisImage = me.parent().find('.remove-image-upload');
+                $removeThisImage.fadeIn();
+
+                $removeThisImage.on('click', function(e) {
+                    e.preventDefault();
+                    resetFileUpload(fileUploadID, 'i' + fileUploadID,  me.find('i'), $removeThisImage);
+                });
+
+            });
         });
     });
 </script>
