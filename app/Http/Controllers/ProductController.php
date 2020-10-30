@@ -26,7 +26,8 @@ class ProductController extends Controller
         if (!is_null($id)) {
             $product = Product::with([
                 'hasUnit',
-                'category'
+                'category',
+                'images'
             ])->find($id);
 
             //return $product;
@@ -37,6 +38,7 @@ class ProductController extends Controller
             'product' => $product,
             'units' => $units,
             'categories' => $categories,
+            'images' => $product->images,
         ]);
     }
     public function update(Request $request)
