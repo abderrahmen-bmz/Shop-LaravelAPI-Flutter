@@ -53,10 +53,11 @@ Route::group(['auth', 'admin_is_admin'], function () {
     Route::get('products', 'ProductController@index')->name('products');
    
     Route::get('new-product', 'ProductController@newProduct')->name('new-product');
-    Route::get('update-product/{id}', 'ProductController@newProduct')->name('update-product');
-    
-    Route::put('update-product', 'ProductController@update')->name('update-product');
     Route::post('new-product', 'ProductController@store');
+
+    Route::get('update-product/{id}', 'ProductController@newProduct')->name('update-product-form');
+    Route::put('update-product', 'ProductController@update')->name('update-product');
+    
     Route::delete('products/{id}', 'ProductController@delete');
 
     // Tags

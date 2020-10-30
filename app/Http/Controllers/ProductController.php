@@ -39,10 +39,8 @@ class ProductController extends Controller
             'categories' => $categories,
         ]);
     }
-
-    public function store(Request $request)
+    public function update(Request $request)
     {
-
         $request->validate([
             'product_title' => 'required',
             'product_description' => 'required',
@@ -52,8 +50,15 @@ class ProductController extends Controller
             'product_total' => 'required',
             'product_category' => 'required',
         ]);
-        //
-        $product = new Product();
+
+        $productID = $request->input('product_id');
+        $product = Product::find($productID);
+        $this->writeProduct($request, $product);
+        session()->flash('meesage', 'Product has been updated');
+        return back();
+    }
+    private function writeProduct(Request $request, Product $product)
+    {
         $product->title = $request->input('product_title');
         $product->description = $request->input('product_description');
         $product->unit = intval($request->input('product_unit'));
@@ -69,26 +74,44 @@ class ProductController extends Controller
                 $actualOptions = $request->input($option);
                 $optionArray[$option] = [];
                 foreach ($actualOptions as $actualOption) {
-                    array_push( $optionArray[$option], $actualOption);
+                    array_push($optionArray[$option], $actualOption);
                 }
             }
             $product->options = json_encode($optionArray);
         }
-
-
         $product->save();
-                          
-                             
-                              if ($request->hasFile('product_images')) {
-                                  $images = $request->file('product_images');
-                                  foreach ($images as  $image) {
-                                   $path = $image->store('public');
-                                   $image = new Image();
-                                   $image->url = $path;
-                                   $image->poduct_id = $product->id;
-                                   $image->save();
-                                }
-                              }   
+
+        if ($request->hasFile('product_images')) {
+            $images = $request->file('product_images');
+            foreach ($images as  $image) {
+                $path = $image->store('public');
+                $image = new Image();
+                $image->url = $path;
+                $image->poduct_id = $product->id;
+                $image->save();
+            }
+        }
+        return $product;
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'product_title' => 'required',
+            'product_description' => 'required',
+            'product_unit' => 'required',
+            'product_price' => 'required',
+            'product_discount' => 'required',
+            'product_total' => 'required',
+            'product_category' => 'required',
+        ]);
+        //
+        $product = new Product();
+        $this->writeProduct($request, $product);
+
+        // dd($request);
+
+
         session()->flash('message', 'Product has been added');
         return redirect(route('products'));
     }

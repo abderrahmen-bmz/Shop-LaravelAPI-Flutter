@@ -11,10 +11,10 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('new-product')}}" class="row" method="POST" enctype="multipart/form-data">
+                    <form action="{{ (! is_null($product) ) ? route('update-product') : route('new-product')}}" class="row" method="POST" enctype="multipart/form-data">
                         @csrf
                         @if (!is_null($product))
-                        <input type="hidden" name="_method" value="put">
+                        <input type="hidden" name="_method" value="PUT">
                         <input type="hidden" name="product_id" value="{{$product->id}}">
                         @endif
 
@@ -46,7 +46,7 @@
                             <select name="product_unit" id="product_unit" class="form-control" required>
                                 <option>Select a unit</option>
                                 @foreach ($units as $unit)
-                                <option value="{{$unit->id}}" {{ (!is_null($product) && ($product->has_unit->id === $unit->id)) ? 'selected' : ''}}>{{$unit->formatted()}}</option>
+                                <option value="{{$unit->id}}" {{ (!is_null($product) && ($product->hasUnit->id === $unit->id)) ? 'selected' : ''}}>{{$unit->formatted()}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -69,7 +69,25 @@
                         {{-- Options --}}
                         <div class="form-group col-md-12">
                             <table id="option-table" class="table table-striped">
+                                @if( ! is_null($product))
+                                @if ( ! is_null($product->jsonOptions()))
+                                @foreach($product->jsonOptions() as $optionName => $options)
+                                @foreach($options as $option)
+                                <tr>
+                                    <td>{{$optionName}}</td>
+                                    <td>{{$option}}</td>
+                                    <td><a href="" class="remove-option">
+                                            <i class="fas fa-minus-circle"></i></a>
+                                        <input type="hidden" name="{{$optionName}}[]" value="{{$option}}">
+                                    </td>
+                                </tr>
 
+                                @endforeach
+                                <td><input type="hidden" name="options[]" value="{{$optionName}}">
+                                </td>
+                                @endforeach
+                                @endif
+                                @endif
                             </table>
                             <a href="#" class="btn btn-primary add-option-btn">Add Option</a>
 
@@ -155,6 +173,18 @@
 
 @section('scripts')
 <script>
+    var optionNameList = [];
+</script>
+        @if(! is_null($product))
+            @if(! is_null($product->jsonOptions()))
+            @foreach ($product->jsonOptions() as $optionName => $options)
+                <script>
+                    optionNameList.push('{{$optionName}}');
+                </script>
+            @endfor
+        @endif
+        @endif
+<script>
     $(document).ready(function() {
         var optionNameList = [];
         var optionNamesRow = "";
@@ -235,8 +265,8 @@
             }
         }
 
-        function resetFileUpload(fileUploadID, imageID ,$el , $ed){
-            $('#'+imageID).attr('src' , '');
+        function resetFileUpload(fileUploadID, imageID, $el, $ed) {
+            $('#' + imageID).attr('src', '');
             $el.fadeIn();
             $ed.fadeOut();
             $('#' + fileUploadID).val('');
@@ -258,7 +288,7 @@
 
                 $removeThisImage.on('click', function(e) {
                     e.preventDefault();
-                    resetFileUpload(fileUploadID, 'i' + fileUploadID,  me.find('i'), $removeThisImage);
+                    resetFileUpload(fileUploadID, 'i' + fileUploadID, me.find('i'), $removeThisImage);
                 });
 
             });

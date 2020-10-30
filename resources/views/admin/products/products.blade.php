@@ -37,19 +37,9 @@
                                 </div>
 
                                 @endforeach
-                                <!-- <table class="table-bordered table">
-                                    @foreach($product->jsonOptions() as $optionKey => $options)
-                                            @foreach($options as $option)
-                                            <tr>
-                                                <td>{{$optionKey}}</td>
-                                                <td>{{$option}}</td>
-                                            </tr>
-                                            @endforeach
-                                    @endforeach
-                                </table> -->
 
-                                @endif
-                                <a class="btn btn-success" href="{{route('update-product' , ['id' => $product->id])}}">
+                              @endif
+                                <a class="btn btn-success" href="{{route('update-product-form' , ['id' => $product->id])}}">
                                     Update Product
                                 </a>
                             </div>
