@@ -31,8 +31,8 @@ Route::get('countries','Api\CountryController@index');
 Route::get('countries/{id}/states','Api\CountryController@showStates');
 Route::get('countries/{id}/cities','Api\CountryController@showCities');
 
-Route::post('users/register','Api\AuthController@register');
-Route::post('users/login','Api\AuthController@login');
+Route::post('auth/register','Api\AuthController@register');
+Route::post('auth/login','Api\AuthController@login');
 
 Route::group(['auth:api'], function () {
     
